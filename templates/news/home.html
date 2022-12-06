@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  {% for news in object_list %}
+    <div class="mt-3">
+      <h3><a href="{% url 'news:detail' news.pk %}">{{ news.title }}</a></h3>
+      <div><small>{{ news.date }}</small></div>
+      <div>{{ news.text|truncatewords:15 }}</div>
+      {% if news.comment_set.all %}
+        <ul>
+          <li>
+            Комментариев: {{ news.comment_set.count }}
+          </li>
+        </ul>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endblock content %}

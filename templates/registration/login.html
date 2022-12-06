@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="row justify-content-center">
+    <div class="col-md-5 p-5">
+      <div class="card">
+        <div class="card-header">Войти на сайт</div>
+        <div class="card-body">
+          {% include "includes/errors.html" %}
+          <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="form-group row my-3 p-3">
+                <label for="{{ field.id_for_label }}">
+                  {{ field.label }}
+                  {% if field.field.required %}
+                    <span class="required text-danger">*</span>
+                  {% endif %}
+                </label>
+                {{ field }}
+              </div>
+            {% endfor %}
+            <div class="col-md-6 offset-md-5">
+              <button type="submit" class="btn btn-primary">
+                Войти
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

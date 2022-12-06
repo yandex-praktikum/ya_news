@@ -1,0 +1,26 @@
+<header>
+  <nav class="navbar navbar-light" style="background-color: lightskyblue">
+    <li class="container">
+      <a class="navbar-brand" href="{% url 'news:home' %}">
+        <span class="text-danger"><b>Ya</b></span>News
+      </a>
+      <ul class="nav nav-pills">
+        {% if user.is_authenticated %}
+          <li class="align-self-center">
+            Пользователь: {{ user.username }}
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:logout' %}">Выйти</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:login' %}">Войти</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'users:signup' %}">Регистрация</a>
+          </li>
+        {% endif %}
+      </ul>
+    </li>
+  </nav>
+</header>

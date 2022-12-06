@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+  <a href="{% url 'news:home' %}">На главную</a>
+  <hr>
+  <h2>{{ news.title }}</h2>
+  <p>{{ news.text }}</p>
+  <p>{{ news.date }}</p>
+  <hr>
+  <h3 id="comments">Комментарии:</h3>
+  {% for comment in news.comment_set.all %}
+    <div>
+      <b>{{ comment.author }}</b>, {{ comment.created }}</b>
+      <p class="mb-0">{{ comment.text|linebreaksbr }}</p>
+      {% if comment.author == user %}
+        <a href="{% url 'news:edit' comment.pk %}">Редактировать</a> |
+        <a href="{% url 'news:delete' comment.pk %}">Удалить</a>
+      {% endif %}
+    </div>
+    <br>
+  {% empty %}
+    <p>Здесь никто ничего не написал...</p>
+  {% endfor %}
+  {% if user.is_authenticated %}
+    <hr>
+    <div class="col-md-3">
+      <h3>Оставить комментарий:</h3>
+      <form action="" method="post">
+        {% csrf_token %}
+        {% include "includes/errors.html" %}
+        {% for field in form %}
+          {{ field }}
+        {% endfor %}
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" >Сохранить</button>
+        </div>
+      </form>
+    </div>
+  {% endif %}
+{% endblock content %}
