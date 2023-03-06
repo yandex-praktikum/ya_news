@@ -9,7 +9,7 @@
   <h3 id="comments">Комментарии:</h3>
   {% for comment in news.comment_set.all %}
     <div>
-      <b>{{ comment.author }}</b>, {{ comment.created }}</b>
+      <b>{{ comment.author }}</b>, <b>{{ comment.created }}</b>
       <p class="mb-0">{{ comment.text|linebreaksbr }}</p>
       {% if comment.author == user %}
         <a href="{% url 'news:edit' comment.pk %}">Редактировать</a> |
